@@ -16,6 +16,22 @@ angular.module('starter.controllers', [])
 			$scope.calculateBmi();
 
 		})
+.controller('BarcodeCtrl', function($scope, $cordovaBarcodeScanner) {
+	$scope.params = {
+		barcode : '',
+		format : ''
+	};
+
+	$scope.scanBarcode = function() {
+		$cordovaBarcodeScanner.scan().then(function(result) {
+			$scope.params.barcode = result.text;
+			$scope.params.format = result.format;
+		}, function(error) {
+			console.warn("An error happened -> " + error);
+		});
+	};
+
+})
 
 .controller('ChatsCtrl', function($scope, Chats) {
 	// With the new view caching in Ionic, Controllers are only called
